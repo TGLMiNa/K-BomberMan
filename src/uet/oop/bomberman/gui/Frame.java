@@ -1,5 +1,7 @@
 package uet.oop.bomberman.gui;
 
+import uet.oop.bomberman.Board;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Game;
 
 import javax.swing.*;
@@ -18,20 +20,19 @@ public class Frame extends JFrame {
 	
 	private Game _game;
 
-	public Frame() {
-		
+	public Frame(boolean isMultiPlayer)
+	{
+		BombermanGame.frame = this;
+		Board.isMultiPlayer = isMultiPlayer;
 		_containerpane = new JPanel(new BorderLayout());
 		_gamepane = new GamePanel(this);
 		_infopanel = new InfoPanel(_gamepane.getGame());
 		_containerpane.add(_infopanel, BorderLayout.PAGE_START);
 		_containerpane.add(_gamepane, BorderLayout.PAGE_END);
-		
 		_game = _gamepane.getGame();
-		
 		add(_containerpane);
-		
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);	
@@ -45,6 +46,4 @@ public class Frame extends JFrame {
 	public void setPoints(int points) {
 		_infopanel.setPoints(points);
 	}
-
-	
 }

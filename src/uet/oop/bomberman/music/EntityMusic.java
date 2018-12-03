@@ -12,10 +12,11 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class EntityMusic {
 	private AudioInputStream audioInputStream;
 	private Clip clip;
-	public void getItem() {
+	
+	public void getMusic(String path) {
 		try {
 			audioInputStream = AudioSystem
-					.getAudioInputStream(new File("Pro_music/Sound/powerup2.wav").getAbsoluteFile());
+					.getAudioInputStream(new File(path).getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
@@ -26,6 +27,9 @@ public class EntityMusic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void getItem() {
+		getMusic("Pro_music/Sound/powerup2.wav");
 	}
 	
 }

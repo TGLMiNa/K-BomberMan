@@ -19,15 +19,16 @@ public class Bomb extends AnimatedEntitiy {
 	protected Flame[] _flames;
 	protected boolean _exploded = false;
 	protected boolean _allowedToPassThru = true;
+	public int typeOfBomber = 1;
 	
 	private BombMusic Music = new BombMusic();
-	public Bomb(int x, int y, Board board) {
+	public Bomb(int x, int y, Board board, int typeOfBomber) {
 		_x = x;
 		_y = y;
 		_board = board;
 		_sprite = Sprite.bomb;
+		this.typeOfBomber = typeOfBomber;
 	}
-	
 	@Override
 	public void update() {
 		if(_timeToExplode > 0) 
@@ -87,10 +88,14 @@ public class Bomb extends AnimatedEntitiy {
 		// TODO: tạo các Flame
 		_flames = new Flame[4];
 		
+		int radius;
+		if (typeOfBomber == 1)
+			radius = Game.getBombRadius();
+		else
+			radius = Game.getBombRadius2();
 		for (int i = 0; i < 4; i++) {
-			_flames[i] = new Flame((int)_x, (int)_y, i , Game.getBombRadius(), _board);
-		}
-		
+			_flames[i] = new Flame((int)_x, (int)_y, i , radius, _board);
+		}	
 	}
 	
 	public FlameSegment flameAt(int x, int y) {
@@ -119,6 +124,11 @@ public class Bomb extends AnimatedEntitiy {
 			return _allowedToPassThru;
 			
 		}
+		if (e instanceof Flame) {
+        	if (!_exploded)
+        		this.explode();
+	        return true;
+	    }
         return false;
 	}
 	

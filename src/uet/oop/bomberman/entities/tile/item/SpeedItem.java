@@ -19,7 +19,10 @@ public class SpeedItem extends Item {
 			if (getted == false)
 			{
 				Music.getItem();
-				Game.addBomberSpeed(0.5);
+				if (((Bomber) e).typeOfBomber == 1)
+					Game.addBomberSpeed(1);
+				else
+					Game.addBomberSpeed2(1);
 				this.remove();
 				getted = true;
 			}

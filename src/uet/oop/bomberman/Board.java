@@ -27,7 +27,7 @@ public class Board implements IRender {
 	protected Game _game;
 	protected Keyboard _input;
 	protected Screen _screen;
-	
+	public static boolean isMultiPlayer = false;
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
 	protected List<Bomb> _bombs = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Board implements IRender {
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	
-	private backGroundMusic Music = new backGroundMusic();
+	public static backGroundMusic Music = new backGroundMusic();
 	public Board(Game game, Keyboard input, Screen screen) {
 		_game = game;
 		_input = input;
@@ -68,11 +68,11 @@ public class Board implements IRender {
 		if( _game.isPaused() ) return;
 		
 		//only render the	 visible part of screen
+		int marginX = isMultiPlayer ? 0 :Game.TILES_SIZE;
 		int x0 = Screen.xOffset >> 4; //tile precision, -> left X
-		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE; // -> right X
+		int x1 = (Screen.xOffset + screen.getWidth() + marginX) / Game.TILES_SIZE; // -> right X
 		int y0 = Screen.yOffset >> 4;
 		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //render one tile plus to fix black margins
-		
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
 				_entities[x + y * _levelLoader.getWidth()].render(screen);
@@ -85,7 +85,10 @@ public class Board implements IRender {
 	}
 	
 	public void nextLevel() {
-		Music.stop();
+		Music.stop1();
+		Game.bomberSpeed = 1;
+		Game.bombRadius = 1;
+		Game.bombRate = 1;
 		loadLevel(_levelLoader.getLevel() + 1);
 	}
 	

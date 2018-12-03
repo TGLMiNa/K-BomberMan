@@ -17,9 +17,9 @@ public class Sprite {
 	 * Board sprites
 	 * |--------------------------------------------------------------------------
 	 */
-	public static Sprite grass = new Sprite(16, 1, 0, SpriteSheet.texture, 16, 16);
-	public static Sprite brick = new Sprite(16, 2, 0, SpriteSheet.texture, 16, 16);
-	public static Sprite wall = new Sprite(16, 0, 0, SpriteSheet.texture, 16, 16);
+	public static Sprite grass = new Sprite(16, 1, 2, SpriteSheet.texture2, 16, 16);
+	public static Sprite brick = new Sprite(16, 2, 2, SpriteSheet.texture2, 16, 16);
+	public static Sprite wall = new Sprite(16, 5, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite portal = new Sprite(16, 4, 0, SpriteSheet.tiles, 14, 14);
 
 	/*
@@ -27,26 +27,43 @@ public class Sprite {
 	 * Bomber Sprites
 	 * |--------------------------------------------------------------------------
 	 */
-	public static Sprite player_up = new Sprite(16, 0, 0, SpriteSheet.tiles, 12, 16);
-	public static Sprite player_down = new Sprite(16, 2, 0, SpriteSheet.tiles, 12, 15);
-	public static Sprite player_left = new Sprite(16, 3, 0, SpriteSheet.tiles, 10, 15);
-	public static Sprite player_right = new Sprite(16, 1, 0, SpriteSheet.tiles, 10, 16);
+	public static Sprite player_up = new Sprite(16, 8, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_down = new Sprite(16, 0, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_left = new Sprite(16, 12, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_right = new Sprite(16, 4, 0, SpriteSheet.bomber, 16, 16);
 
-	public static Sprite player_up_1 = new Sprite(16, 0, 1, SpriteSheet.tiles, 12, 16);
-	public static Sprite player_up_2 = new Sprite(16, 0, 2, SpriteSheet.tiles, 12, 15);
+	public static Sprite player_up_1 = new Sprite(16, 9, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_up_2 = new Sprite(16, 11, 0, SpriteSheet.bomber, 16, 16);
 
-	public static Sprite player_down_1 = new Sprite(16, 2, 1, SpriteSheet.tiles, 12, 15);
-	public static Sprite player_down_2 = new Sprite(16, 2, 2, SpriteSheet.tiles, 12, 16);
+	public static Sprite player_down_1 = new Sprite(16, 1, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_down_2 = new Sprite(16, 3, 0, SpriteSheet.bomber, 16, 16);
 
-	public static Sprite player_left_1 = new Sprite(16, 3, 1, SpriteSheet.tiles, 11, 16);
-	public static Sprite player_left_2 = new Sprite(16, 3, 2, SpriteSheet.tiles, 12, 16);
+	public static Sprite player_left_1 = new Sprite(16, 13, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_left_2 = new Sprite(16, 15, 0, SpriteSheet.bomber, 16, 16);
 
-	public static Sprite player_right_1 = new Sprite(16, 1, 1, SpriteSheet.tiles, 11, 16);
-	public static Sprite player_right_2 = new Sprite(16, 1, 2, SpriteSheet.tiles, 12, 16);
+	public static Sprite player_right_1 = new Sprite(16, 5, 0, SpriteSheet.bomber, 16, 16);
+	public static Sprite player_right_2 = new Sprite(16, 7, 0, SpriteSheet.bomber, 16, 16);
 
 	public static Sprite player_dead1 = new Sprite(16, 4, 2, SpriteSheet.tiles, 14, 16);
 	public static Sprite player_dead2 = new Sprite(16, 5, 2, SpriteSheet.tiles, 13, 15);
 	public static Sprite player_dead3 = new Sprite(16, 6, 2, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite player2_up = new Sprite(16, 8, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_down = new Sprite(16, 0, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_left = new Sprite(16, 12, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_right = new Sprite(16, 4, 4, SpriteSheet.bomber, 16, 16);
+
+	public static Sprite player2_up_1 = new Sprite(16, 9, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_up_2 = new Sprite(16, 11, 4, SpriteSheet.bomber, 16, 16);
+
+	public static Sprite player2_down_1 = new Sprite(16, 1, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_down_2 = new Sprite(16, 3, 4, SpriteSheet.bomber, 16, 16);
+
+	public static Sprite player2_left_1 = new Sprite(16, 13, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_left_2 = new Sprite(16, 15, 4, SpriteSheet.bomber, 16, 16);
+
+	public static Sprite player2_right_1 = new Sprite(16, 5, 4, SpriteSheet.bomber, 16, 16);
+	public static Sprite player2_right_2 = new Sprite(16, 7, 4, SpriteSheet.bomber, 16, 16);
 
 	/*
 	 * |-------------------------------------------------------------------------- |
@@ -171,9 +188,9 @@ public class Sprite {
 	 * Brick FlameSegment
 	 * |--------------------------------------------------------------------------
 	 */
-	public static Sprite brick_exploded = new Sprite(16, 3, 0, SpriteSheet.texture, 16, 16);
-	public static Sprite brick_exploded1 = new Sprite(16, 5, 0, SpriteSheet.texture, 16, 16);
-	public static Sprite brick_exploded2 = new Sprite(16, 6, 0, SpriteSheet.texture, 16, 16);
+	public static Sprite brick_exploded = new Sprite(16, 3, 2, SpriteSheet.texture2, 16, 16);
+	public static Sprite brick_exploded1 = new Sprite(16, 4, 2, SpriteSheet.texture2, 16, 16);
+	public static Sprite brick_exploded2 = new Sprite(16, 5, 2, SpriteSheet.texture2, 16, 16);
 
 	/*
 	 * |-------------------------------------------------------------------------- |

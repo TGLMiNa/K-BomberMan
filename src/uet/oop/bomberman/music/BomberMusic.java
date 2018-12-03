@@ -12,10 +12,11 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class BomberMusic {
 	private AudioInputStream audioInputStream;
 	private Clip clip;
-	public void bomberDeath() {
+	
+	public void getMusic(String path) {
 		try {
 			audioInputStream = AudioSystem
-					.getAudioInputStream(new File("Pro_music/Sound/death.wav").getAbsoluteFile());
+					.getAudioInputStream(new File(path).getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
@@ -27,20 +28,11 @@ public class BomberMusic {
 			e.printStackTrace();
 		}
 	}
+	public void bomberDeath() {
+		getMusic("Pro_music/Sound/death.wav");
+	}
 	
 	public void putBomb() {
-		try {
-			audioInputStream = AudioSystem
-					.getAudioInputStream(new File("Pro_music/Sound/bombplant.wav").getAbsoluteFile());
-			clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			clip.start();
-		} catch (UnsupportedAudioFileException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			getMusic("Pro_music/Sound/bombplant.wav");
 	}
 }

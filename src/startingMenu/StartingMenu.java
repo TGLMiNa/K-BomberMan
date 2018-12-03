@@ -25,6 +25,7 @@ public class StartingMenu extends javax.swing.JFrame {
      */
 	private startingMusic music = new startingMusic();
 	
+	BombermanGame game;
     public StartingMenu() {
     	music.play();
         initComponents();
@@ -48,9 +49,9 @@ public class StartingMenu extends javax.swing.JFrame {
         setTitle("Bomber Man ++");
         
         jPanel1.setPreferredSize(new java.awt.Dimension(1058, 563));
-        jButton1.setBackground(new java.awt.Color(153, 153, 0));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 102, 102));
+        jButton1.setBackground(new java.awt.Color(222, 245, 28));
+        jButton1.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(87,85,87));
         jButton1.setText("Exit");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -59,9 +60,9 @@ public class StartingMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(153, 153, 0));
-        jButton2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(102, 102, 102));
+        jButton2.setBackground(new java.awt.Color(222, 245, 28));
+        jButton2.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(87,85,87));
         jButton2.setText("Single Player");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -70,9 +71,9 @@ public class StartingMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(153, 153, 0));
-        jButton3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(102, 102, 102));
+        jButton3.setBackground(new java.awt.Color(222, 245, 28));
+        jButton3.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(87,85,87));
         jButton3.setText("Multi Players");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -132,46 +133,50 @@ public class StartingMenu extends javax.swing.JFrame {
     }
 
     private void HandleExitBtn(java.awt.event.ActionEvent evt) {
-    	this.dispose();
+    	System.exit(0);
     }//GEN-LAST:event_HandleExitBtn
 
     private void handleSingleBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handleSingleBtn
-    	this.dispose();
+    	this.setVisible(false);
     	music.stop();
-    	BombermanGame game = new BombermanGame();
+    	game = new BombermanGame(false);
     	game.start();
     }//GEN-LAST:event_handleSingleBtn
     
     
     private void handleMultiBtn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handleMultiBtn
         // TODO add your handling code here:
+    	this.setVisible(false);
+    	music.stop();
+    	game = new BombermanGame(true);
+    	game.start();
     }
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StartingMenu().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(StartingMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new StartingMenu().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -21,7 +21,7 @@ public class Bomber extends Character {
 	private List<Bomb> _bombs;
 	protected Keyboard _input;
 	private BomberMusic Music = new BomberMusic();
-
+	public int typeOfBomber = 1;
 	/**
 	 * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb tiếp theo, cứ mỗi lần đặt
 	 * 1 Bomb mới, giá trị này sẽ được reset về 0 và giảm dần trong mỗi lần update()
@@ -35,7 +35,17 @@ public class Bomber extends Character {
 		_sprite = Sprite.player_right;
 	}
 
-	@Override
+	public Bomber(int x, int y, Board board, int typeOfBomber) {
+		super(x, y, board);
+		_bombs = _board.getBombs();
+		_input = _board.getInput();
+		if (typeOfBomber == 2)
+			_sprite = Sprite.player2_right;
+		else
+			_sprite = Sprite.player_right;
+		this.typeOfBomber = typeOfBomber;
+	}
+
 	public void update() {
 		clearBombs();
 		if (!_alive) {
@@ -86,9 +96,18 @@ public class Bomber extends Character {
 		// TODO: nếu 3 điều kiện trên thỏa mãn thì thực hiện đặt bom bằng placeBomb()
 		// TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs
 		// về 0
-		if (_input.space == true && Game.getBombRate() > 0 && _timeBetweenPutBombs < 0) {
+
+		if (_input.space == true && typeOfBomber == 1
+				&& Game.getBombRate() > 0 && _timeBetweenPutBombs < 0) {
 			placeBomb((int) _x, (int) _y);
 			Game.addBombRate(-1);
+			_timeBetweenPutBombs = 25;
+		}
+		
+		if (_input.X == true && typeOfBomber == 2
+				&& Game.getBombRate2() > 0 && _timeBetweenPutBombs < 0) {
+			placeBomb((int) _x, (int) _y);
+			Game.addBombRate2(-1);
 			_timeBetweenPutBombs = 25;
 		}
 	}
@@ -97,7 +116,7 @@ public class Bomber extends Character {
 		// TODO: thực hiện tạo đối tượng bom, đặt vào vị trí (x, y)
 		Music.putBomb();
 		Bomb b = new Bomb(Coordinates.pixelToTile(x + _sprite.getSize() / 2),
-				Coordinates.pixelToTile(y - Game.TILES_SIZE / 2), _board);
+				Coordinates.pixelToTile(y - Game.TILES_SIZE / 2), _board, typeOfBomber);
 		_bombs.add(b);
 	}
 
@@ -109,10 +128,13 @@ public class Bomber extends Character {
 			b = bs.next();
 			if (b.isRemoved()) {
 				bs.remove();
-				Game.addBombRate(1);
+
+				if (b.typeOfBomber == 1)
+					Game.addBombRate(1);
+				if (b.typeOfBomber == 2)
+					Game.addBombRate2(1);
 			}
 		}
-
 	}
 
 	@Override
@@ -138,15 +160,26 @@ public class Bomber extends Character {
 		// hiện di chuyển
 		// TODO: nhớ cập nhật lại giá trị cờ _moving khi thay đổi trạng thái di chuyển
 		int x = 0, y = 0;
-		if (_input.down == true)
-			y++;
-		if (_input.up == true)
-			y--;
-		if (_input.right == true)
-			x++;
-		if (_input.left == true)
-			x--;
-
+		if (typeOfBomber == 1) {
+			if (_input.down == true)
+				y++;
+			if (_input.up == true)
+				y--;
+			if (_input.right == true)
+				x++;
+			if (_input.left == true)
+				x--;
+		}
+		if (typeOfBomber == 2) {
+			if (_input.S == true)
+				y++;
+			if (_input.W == true)
+				y--;
+			if (_input.D == true)
+				x++;
+			if (_input.A == true)
+				x--;
+		}
 		if (x != 0 || y != 0) {
 			_moving = true;
 			move(x * Game.getBomberSpeed(), y * Game.getBomberSpeed());
@@ -270,6 +303,7 @@ public class Bomber extends Character {
 		}
 		return true;
 	}
+
 	@Override
 	public boolean getCollide(Entity e) {
 		// TODO: xử lý va chạm với Flame
@@ -281,37 +315,73 @@ public class Bomber extends Character {
 	}
 
 	private void chooseSprite() {
-		switch (_direction) {
-		case 0:
-			_sprite = Sprite.player_up;
-			if (_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
+		if (typeOfBomber == 1) {
+			switch (_direction) {
+			case 0:
+				_sprite = Sprite.player_up;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
+				}
+				break;
+			case 1:
+				_sprite = Sprite.player_right;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+				}
+				break;
+			case 2:
+				_sprite = Sprite.player_down;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
+				}
+				break;
+			case 3:
+				_sprite = Sprite.player_left;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
+				}
+				break;
+			default:
+				_sprite = Sprite.player_right;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+				}
+				break;
 			}
-			break;
-		case 1:
-			_sprite = Sprite.player_right;
-			if (_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+		} else {
+			switch (_direction) {
+			case 0:
+				_sprite = Sprite.player2_up;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player2_up_1, Sprite.player2_up_2, _animate, 20);
+				}
+				break;
+			case 1:
+				_sprite = Sprite.player2_right;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player2_right_1, Sprite.player2_right_2, _animate, 20);
+				}
+				break;
+			case 2:
+				_sprite = Sprite.player2_down;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player2_down_1, Sprite.player2_down_2, _animate, 20);
+				}
+				break;
+			case 3:
+				_sprite = Sprite.player2_left;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player2_left_1, Sprite.player2_left_2, _animate, 20);
+				}
+				break;
+			default:
+				_sprite = Sprite.player2_right;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player2_right_1, Sprite.player2_right_2, _animate, 20);
+				}
+				break;
 			}
-			break;
-		case 2:
-			_sprite = Sprite.player_down;
-			if (_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
-			}
-			break;
-		case 3:
-			_sprite = Sprite.player_left;
-			if (_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
-			}
-			break;
-		default:
-			_sprite = Sprite.player_right;
-			if (_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
-			}
-			break;
 		}
+
 	}
 }

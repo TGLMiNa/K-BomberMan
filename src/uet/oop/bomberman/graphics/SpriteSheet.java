@@ -17,21 +17,22 @@ public class SpriteSheet {
 	
 	public static SpriteSheet tiles = new SpriteSheet("/textures/classic.png", 256);
 	
-	public static SpriteSheet texture = new SpriteSheet("/textures/texture.png", 256);
+	public static SpriteSheet bomber = new SpriteSheet("/textures/bomber.png", 256);
+	
+	public static SpriteSheet texture2 = new SpriteSheet("/textures/texture2.png", 256);
 	
 	public SpriteSheet(String path, int size) {
 		_path = path;
 		SIZE = size;
 		_pixels = new int[SIZE * SIZE];
 		load();
-	}
-	
+	}	
 	private void load() {
 		try {
 			URL a = SpriteSheet.class.getResource(_path);
 			BufferedImage image = ImageIO.read(a);
-			int w = image.getWidth();
-			int h = image.getHeight();
+			int w = 256;
+			int h = 256;
 			image.getRGB(0, 0, w, h, _pixels, 0, w);
 		} catch (IOException e) {
 			e.printStackTrace();

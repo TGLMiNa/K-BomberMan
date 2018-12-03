@@ -12,13 +12,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class startingMusic {
 	private AudioInputStream audioInputStream;
 	private Clip clip;
-	public void play() {
+	public void getMusic(String path) {
 		try {
 			audioInputStream = AudioSystem
-					.getAudioInputStream(new File("Pro_music/Invincibility_Theme.wav").getAbsoluteFile());
+					.getAudioInputStream(new File(path).getAbsoluteFile());
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
 			clip.start();
 		} catch (UnsupportedAudioFileException | IOException e) {
 			// TODO Auto-generated catch block
@@ -27,6 +26,9 @@ public class startingMusic {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void play() {
+		getMusic("Pro_music/Invincibility_Theme.wav");
 	}
 	
 	public void stop() {

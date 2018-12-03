@@ -19,7 +19,10 @@ public class BombItem extends Item {
 			if (getted == false)
 			{
 				Music.getItem();
-				Game.addBombRate(1);
+				if (((Bomber) e).typeOfBomber == 1)
+					Game.addBombRate(1);
+				else
+					Game.addBombRate2(1);
 				this.remove();
 				getted = true;
 			}

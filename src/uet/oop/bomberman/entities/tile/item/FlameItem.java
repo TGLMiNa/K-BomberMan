@@ -19,7 +19,10 @@ public class FlameItem extends Item {
 			if (getted == false)
 			{
 				Music.getItem();
-				Game.addBombRadius(1);
+				if (((Bomber) e).typeOfBomber == 1)
+					Game.addBombRadius(1);
+				else
+					Game.addBombRadius2(1);
 				this.remove();
 				getted = true;
 			}

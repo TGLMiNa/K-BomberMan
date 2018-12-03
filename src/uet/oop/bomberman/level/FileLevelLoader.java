@@ -49,6 +49,7 @@ public class FileLevelLoader extends LevelLoader {
 		// TODO: cập nhật các giá trị đọc được vào _width, _height, _level, _map
 		Scanner reader;
 		try {
+			level = Board.isMultiPlayer ? 4 : level;
 			reader = new Scanner(new File("res/levels/Level" + level +".txt"));
 			_level = level;
 			int num = reader.nextInt();
@@ -96,7 +97,13 @@ public class FileLevelLoader extends LevelLoader {
 				// thêm Bomber
 				if (_map[y][x] == 'p') {
 					_board.addCharacter(new Bomber(Coordinates.tileToPixel(x),
-							Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+							Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board,1));
+					Screen.setOffset(0, 0);
+					_board.addEntity(pos, new Grass(x, y, Sprite.grass));
+				}
+				if (_map[y][x] == 'n') {
+					_board.addCharacter(new Bomber(Coordinates.tileToPixel(x),
+							Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board,2));
 					Screen.setOffset(0, 0);
 					_board.addEntity(pos, new Grass(x, y, Sprite.grass));
 				}

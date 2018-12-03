@@ -14,7 +14,7 @@ public class Screen {
 	protected int _width, _height;
 	public int[] _pixels;
 	private int _transparentColor = 0xffff00ff;
-	
+
 	public static int xOffset = 0, yOffset = 0;
 	
 	public Screen(int width, int height) {
@@ -80,7 +80,7 @@ public class Screen {
 			temp = (int)bomber.getX()  - (Game.WIDTH / 2);
 		}
 		
-		return temp;
+		return Board.isMultiPlayer ? 0 :  temp;
 	}
 	
 	public void drawEndGame(Graphics g, int points) {
@@ -90,12 +90,15 @@ public class Screen {
 		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
 		g.setFont(font);
 		g.setColor(Color.white);
-		drawCenteredString("GAME OVER", getRealWidth(), getRealHeight(), g);
-		
+		if (!Board.isMultiPlayer)
+			drawCenteredString("GAME OVER", getRealWidth(), getRealHeight(), g);
+		else
+			drawCenteredString("YOU WIN", getRealWidth(), getRealHeight(), g);
 		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
 		g.setFont(font);
 		g.setColor(Color.yellow);
-		drawCenteredString("POINTS: " + points, getRealWidth(), getRealHeight() + (Game.TILES_SIZE * 2) * Game.SCALE, g);
+		if (!Board.isMultiPlayer)
+			drawCenteredString("POINTS: " + points, getRealWidth(), getRealHeight() + (Game.TILES_SIZE * 2) * Game.SCALE, g);
 	}
 	
 	public void drawWinGame(Graphics g, int points) {
@@ -106,7 +109,6 @@ public class Screen {
 		g.setFont(font);
 		g.setColor(Color.white);
 		drawCenteredString("You win !!!", getRealWidth(), getRealHeight(), g);
-		
 		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
 		g.setFont(font);
 		g.setColor(Color.yellow);
@@ -120,10 +122,17 @@ public class Screen {
 		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
 		g.setFont(font);
 		g.setColor(Color.white);
+		String title;
 		if (level == 3)
-		 drawCenteredString("Bonus stage", getRealWidth(), getRealHeight(), g);
+			title = "Bonus Stage";
 		else
-			drawCenteredString("Level " + level, getRealWidth(), getRealHeight(), g);
+		{
+			if (Board.isMultiPlayer)
+				title = "Loading ...";
+			else
+				title = "Level " + level;
+		}
+		drawCenteredString(title, getRealWidth(), getRealHeight(), g);
 		
 	}
 	
